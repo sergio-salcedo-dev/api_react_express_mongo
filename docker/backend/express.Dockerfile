@@ -10,4 +10,4 @@ COPY ./backend /app/
 
 EXPOSE 80
 
-CMD [ "node", "app.js" ]
+CMD [ "npm", "start" ]
