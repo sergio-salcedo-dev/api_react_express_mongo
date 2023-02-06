@@ -1,11 +1,21 @@
 version: "3.8"
 services:
   npm-cli:
-    container_name: npm_cli
+    container_name: npm-cli
     build:
       context: .
       dockerfile: ./docker/utility-containers/npm.Dockerfile
     stdin_open: true
     tty: true
     volumes:
-      - ./:/app
+      - ./backend/package.json:/app/package.json
+  backend:
+    container_name: express
+    build:
+      context: .
+      dockerfile: ./docker/backend/express.Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules

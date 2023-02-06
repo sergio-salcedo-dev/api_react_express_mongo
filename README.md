@@ -47,5 +47,13 @@ clear
 ***
 
 ```sh
-docker compose run --rm npm-cli install --save-dev eslint-config-prettier
+docker compose run --rm npm-cli <PACKAGE>
+```
+
+```sh
+docker logs npm-cli
+```
+
+```sh
+docker logs express
 ```
