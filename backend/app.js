@@ -1,6 +1,5 @@
-import express from "express";
+import app from "./server.mjs";
 
-const app = express();
 const PORT = 80;
 
 app.get("/", (req, res) => {
