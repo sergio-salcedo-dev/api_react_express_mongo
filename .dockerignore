@@ -2,5 +2,8 @@
 .*ignore
 .idea
 .vscode
-.*.md
-.DockerFile*
+*.md
+**/node_modules
+Makefile
+**/Dockerfile*
+docker-compose*.yml
