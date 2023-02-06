@@ -47,5 +47,5 @@ clear
 ***
 
 ```sh
-docker compose run --rm npm-cli install --save-dev eslint
+docker compose run --rm npm-cli install --save-dev --save-exact prettier
 ```
