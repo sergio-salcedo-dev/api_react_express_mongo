@@ -25,10 +25,21 @@ docker image prune -a
 ```
 
 ```sh
-docker compose run --rm npm-cli init
+docker volume ls
+```
+
+```sh
+docker volume prune
+```
+
+```sh
+docker compose up -d
+```
+
+```sh
+docker compose down
 ```
 
 ```sh
 clear
 ```
-
