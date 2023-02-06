@@ -2,7 +2,9 @@ version: "3.8"
 services:
   npm-cli:
     container_name: npm_cli
-    build: ./
+    build:
+      context: .
+      dockerfile: ./docker/utility-containers/npm.Dockerfile
     stdin_open: true
     tty: true
     volumes:
