@@ -47,9 +47,5 @@ clear
 ***
 
 ```sh
-docker compose run --rm npm-cli install express
-```
-
-```sh
-docker compose run --rm npm-cli install -g npm@9.4.1 
+docker compose run --rm npm-cli install --save-dev eslint
 ```
