@@ -47,13 +47,16 @@ clear
 ***
 
 ```sh
-docker compose run --rm npm-cli <PACKAGE>
-```
-
-```sh
 docker logs npm-cli
 ```
 
 ```sh
 docker logs express
 ```
+
+***
+
+```
+docker compose run --rm npm-cli <PACKAGE>
+```
+
