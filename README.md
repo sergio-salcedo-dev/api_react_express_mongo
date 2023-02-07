@@ -56,12 +56,6 @@ docker logs express
 
 ***
 
-```
-docker compose run --rm npm-cli <PACKAGE>
-```
-
-***
-
 # Up & Run project
 
 ```sh
@@ -69,5 +63,5 @@ make up
 ```
 
 ```sh
-cd backend && npm i
+cd "$(pwd)/backend" && npm i
 ```
