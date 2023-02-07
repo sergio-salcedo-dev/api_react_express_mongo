@@ -9,6 +9,6 @@ RUN npm install
 
 COPY ./backend/src /app/src
 
-EXPOSE 80
+EXPOSE $PORT
 
 CMD [ "npm", "start" ]

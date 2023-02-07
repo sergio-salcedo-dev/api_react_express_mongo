@@ -1,7 +1,7 @@
 import app from "./server.mjs";
 import Logger from "./services/Logger.js";
 
-const PORT = 80;
+const PORT = process.env.PORT;
 
 app.get("/", (request, response) => {
   response.send("Hello World!");
