@@ -1,6 +1,9 @@
 up:
 	@docker-compose up -d || docker compose up -d
 	@echo "- Go to: http://localhost:80"
+
+health-check:
+	@docker ps || docker ps
 	@docker logs express || docker logs express
 
 down:
