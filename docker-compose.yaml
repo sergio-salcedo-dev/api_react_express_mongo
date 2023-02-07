@@ -17,5 +17,5 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./backend:/app
+      - ./backend/src:/app/src
       - /app/node_modules
