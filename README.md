@@ -61,5 +61,5 @@ docker compose run --rm npm-cli <PACKAGE>
 ```
 
 ```sh
-docker compose run --rm npm-cli install --save-dev nodemon
+docker compose run --rm npm-cli install
 ```
