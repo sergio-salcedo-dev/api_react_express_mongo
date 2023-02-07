@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./docker/backend/express.Dockerfile
     ports:
-      - '80:80'
+      - "80:80"
     volumes:
       - ./backend/src:/app/src
       - /app/node_modules
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: ./docker/frontend/react.Dockerfile
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
