@@ -58,3 +58,34 @@ export const insertGoal = async (request, response) => {
     return handleFailedResponse(response, { message: "Failed to save goal." });
   }
 };
+
+export const deleteGoal = async (request, response) => {
+  try {
+    Logger.log("TRYING TO DELETE GOAL");
+    Logger.log(request.params.id);
+
+    const goalId = request.params.id;
+
+    if (!goalId || parseInt(goalId) < 1) {
+      Logger.log("Invalid goal id");
+
+      return handleUnprocessableEntityResponse(response, {
+        message: "Invalid goal id",
+      });
+    }
+
+    const result = handleSucceededResponse(response, {
+      message: "Deleted goal!",
+    });
+    Logger.log("DELETED GOAL");
+
+    return result;
+  } catch (error) {
+    Logger.error("ERROR FETCHING GOALS");
+    Logger.error(error.message);
+
+    return handleFailedResponse(response, {
+      message: "Failed to delete goal.",
+    });
+  }
+};
