@@ -60,6 +60,14 @@ docker logs express
 docker compose run --rm npm-cli <PACKAGE>
 ```
 
+***
+
+# Up & Run project
+
 ```sh
-docker compose run --rm npm-cli install
+make up
+```
+
+```sh
+cd backend && npm i
 ```
