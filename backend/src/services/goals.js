@@ -2,10 +2,11 @@ import {
   handleFailedResponse,
   handleSuccessfulResponse,
 } from "./responseHandler.js";
+import Logger from "./logger.js";
 
 export const getGoals = async (request, response) => {
   try {
-    console.log("TRYING TO FETCH GOALS");
+    Logger.log("TRYING TO FETCH GOALS");
 
     const goals = [{ id: 1, text: "Hello World" }];
     const mappedGoals = goals.map((goal) => ({
@@ -15,12 +16,12 @@ export const getGoals = async (request, response) => {
 
     const result = handleSuccessfulResponse(response, { goals: mappedGoals });
 
-    console.log("FETCHED GOALS");
+    Logger.log("FETCHED GOALS");
 
     return result;
   } catch (error) {
-    console.error("ERROR FETCHING GOALS");
-    console.error(error.message);
+    Logger.error("ERROR FETCHING GOALS");
+    Logger.error(error.message);
 
     return handleFailedResponse(response, { message: "Failed to load goals." });
   }
