@@ -1,6 +1,8 @@
 import {
+  handleCreatedResponse,
   handleFailedResponse,
-  handleSuccessfulResponse,
+  handleSucceededResponse,
+  handleUnprocessableEntityResponse,
 } from "./responseHandler.js";
 import Logger from "./logger.js";
 
@@ -14,7 +16,7 @@ export const getGoals = async (request, response) => {
       text: goal.text,
     }));
 
-    const result = handleSuccessfulResponse(response, { goals: mappedGoals });
+    const result = handleSucceededResponse(response, { goals: mappedGoals });
 
     Logger.log("FETCHED GOALS");
 
@@ -24,5 +26,35 @@ export const getGoals = async (request, response) => {
     Logger.error(error.message);
 
     return handleFailedResponse(response, { message: "Failed to load goals." });
+  }
+};
+
+export const insertGoal = async (request, response) => {
+  Logger.log("TRYING TO STORE GOAL");
+
+  /** @type {string | undefined} */
+  const goalText = request?.body?.text;
+
+  if (!goalText || goalText.trim().length === 0) {
+    Logger.log("Invalid input: the goal cannot be empty");
+
+    return handleUnprocessableEntityResponse(response, {
+      message: "Invalid goal input text.",
+    });
+  }
+
+  try {
+    const result = handleCreatedResponse(response, {
+      message: "Goal saved",
+      goal: { id: 1, text: goalText },
+    });
+    Logger.log("SAVED NEW GOAL");
+
+    return result;
+  } catch (err) {
+    Logger.error("ERROR FETCHING GOALS");
+    Logger.error(err.message);
+
+    return handleFailedResponse(response, { message: "Failed to save goal." });
   }
 };

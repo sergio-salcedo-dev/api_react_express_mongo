@@ -1,4 +1,9 @@
-const validateResponseParams = (response, result) => {
+const STATUS_CODE_200 = 200;
+const STATUS_CODE_201 = 201;
+const STATUS_CODE_422 = 422;
+const STATUS_CODE_500 = 500;
+
+const validateResponse = (response, result) => {
   if (!response || !result || !Object.keys(result).length) {
     throw new Error("Error: invalid response");
   }
@@ -8,12 +13,12 @@ const validateResponseParams = (response, result) => {
  * @param {object} response
  * @param {object} result
  */
-export const handleSuccessfulResponse = (response, result = {}) => {
+export const handleSucceededResponse = (response, result = {}) => {
   if (!response || !result || !Object.keys(result).length) {
     throw new Error("Error: invalid response");
   }
 
-  return response.status(200).json(result);
+  return response.status(STATUS_CODE_200).json(result);
 };
 
 /**
@@ -21,7 +26,27 @@ export const handleSuccessfulResponse = (response, result = {}) => {
  * @param {object} result
  */
 export const handleFailedResponse = (response, result = {}) => {
-  validateResponseParams(response, result);
+  validateResponse(response, result);
 
-  return response.status(500).json(result);
+  return response.status(STATUS_CODE_500).json(result);
+};
+
+/**
+ * @param {object} response
+ * @param {object} result
+ */
+export const handleUnprocessableEntityResponse = (response, result = {}) => {
+  validateResponse(response, result);
+
+  return response.status(STATUS_CODE_422).json(result);
+};
+
+/**
+ * @param {object} response
+ * @param {object} result
+ */
+export const handleCreatedResponse = (response, result = {}) => {
+  validateResponse(response, result);
+
+  return response.status(STATUS_CODE_201).json(result);
 };
