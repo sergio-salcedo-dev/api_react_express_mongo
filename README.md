@@ -54,6 +54,10 @@ docker logs npm-cli
 docker logs express
 ```
 
+```sh
+npx create-react-app frontend
+```
+
 ***
 
 # Up & Run project
@@ -64,4 +68,8 @@ make up
 
 ```sh
 cd "$(pwd)/backend" && npm i
+```
+
+```sh
+cd "$(pwd)/frontend" && npm start
 ```
