@@ -1,7 +1,7 @@
 {
-  "name": "api_react_express_mongo",
+  "name": "backend_express_api",
   "version": "1.0.0",
-  "description": "dummy API using React, Express, MongoDB",
+  "description": "dummy API using Express",
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
