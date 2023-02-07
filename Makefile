@@ -1,5 +1,5 @@
 up:
-	@docker-compose up -d || docker compose up -d
+	@docker-compose up -d --build || docker compose up -d --build
 	@echo "- Go to: http://localhost:80"
 
 health-check:
