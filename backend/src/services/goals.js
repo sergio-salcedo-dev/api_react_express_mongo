@@ -29,6 +29,35 @@ export const getGoals = async (request, response) => {
   }
 };
 
+export const getGoal = async (request, response) => {
+  try {
+    Logger.log("TRYING TO FETCH GOAL");
+
+    const goalId = request.params.id;
+
+    if (!goalId || parseInt(goalId) < 1) {
+      Logger.log("Invalid goal id");
+
+      return handleUnprocessableEntityResponse(response, {
+        message: "Invalid goal id",
+      });
+    }
+
+    const goal = { id: goalId, text: "My first goal" };
+
+    const result = handleSucceededResponse(response, { goal });
+
+    Logger.log("FETCHED GOAL");
+
+    return result;
+  } catch (error) {
+    Logger.error("ERROR FETCHING GOAL");
+    Logger.error(error.message);
+
+    return handleFailedResponse(response, { message: "Failed to load goal." });
+  }
+};
+
 export const insertGoal = async (request, response) => {
   Logger.log("TRYING TO STORE GOAL");
 
