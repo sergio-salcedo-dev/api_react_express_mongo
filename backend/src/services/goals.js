@@ -72,10 +72,12 @@ export const insertGoal = async (request, response) => {
     });
   }
 
+  const goalId = Math.floor(Math.random() * 1000) + 1;
+
   try {
     const result = handleCreatedResponse(response, {
       message: "Goal saved",
-      goal: { id: 1, text: goalText },
+      goal: { id: goalId, text: goalText },
     });
     Logger.log("SAVED NEW GOAL");
 
