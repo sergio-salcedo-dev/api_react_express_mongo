@@ -18,7 +18,7 @@ app.use(setHeaders());
 app.get(ROUTE_GOALS, getGoals);
 app.get(`${ROUTE_GOAL}/:id`, getGoal);
 
-app.post(ROUTE_GOALS, insertGoal);
+app.post(ROUTE_GOAL, insertGoal);
 
 app.delete(`${ROUTE_GOAL}/:id`, deleteGoal);
 
