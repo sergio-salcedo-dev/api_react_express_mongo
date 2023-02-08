@@ -47,10 +47,6 @@ clear
 ***
 
 ```sh
-docker logs npm-cli
-```
-
-```sh
 docker logs express
 ```
 
