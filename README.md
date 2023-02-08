@@ -65,3 +65,15 @@ make up
 ```sh
 cd "$(pwd)/backend" && npm i
 ```
+
+***
+
+# Down project
+
+```sh
+make soft-down
+```
+
+```sh
+make down
+```
