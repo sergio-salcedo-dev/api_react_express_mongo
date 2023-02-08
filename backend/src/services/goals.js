@@ -10,7 +10,7 @@ export const getGoals = async (request, response) => {
   try {
     Logger.log("TRYING TO FETCH GOALS");
 
-    const goals = [{ id: 1, text: "Hello World" }];
+    const goals = [{ id: 1, text: '"localhost/goals" => getGoals()' }];
     const mappedGoals = goals.map((goal) => ({
       id: goal.id,
       text: goal.text,
@@ -43,7 +43,7 @@ export const getGoal = async (request, response) => {
       });
     }
 
-    const goal = { id: goalId, text: "My first goal" };
+    const goal = { id: goalId, text: "'\"localhost/goal/1\" => getGoal()'" };
 
     const result = handleSucceededResponse(response, { goal });
 
