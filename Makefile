@@ -6,6 +6,9 @@ health-check:
 	@docker ps || docker ps
 	@docker logs express || docker logs express
 
+soft-down:
+	@docker-compose down || docker compose down
+
 down:
 	@docker-compose down || docker compose down
 	@docker volume prune || docker volume prune
