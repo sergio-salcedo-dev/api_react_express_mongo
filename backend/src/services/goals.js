@@ -86,7 +86,7 @@ export const insertGoal = async (request, response) => {
 
     return result;
   } catch (err) {
-    Logger.error("ERROR FETCHING GOALS");
+    Logger.error("ERROR SAVING GOAL");
     Logger.error(err.message);
 
     return handleFailedResponse(response, { message: "Failed to save goal." });
@@ -116,7 +116,7 @@ export const deleteGoal = async (request, response) => {
 
     return result;
   } catch (error) {
-    Logger.error("ERROR FETCHING GOALS");
+    Logger.error("ERROR DELETING GOAL");
     Logger.error(error.message);
 
     return handleFailedResponse(response, {
