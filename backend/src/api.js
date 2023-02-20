@@ -1,7 +1,13 @@
 import app from "./server.mjs";
 import { ROUTE_GOAL, ROUTE_GOALS, ROUTE_HOME } from "./routes.js";
 import { getWelcome } from "./services/home.js";
-import { deleteGoal, getGoal, getGoals, insertGoal } from "./services/goals.js";
+import {
+  deleteGoal,
+  deleteGoals,
+  getGoal,
+  getGoals,
+  insertGoal,
+} from "./services/goals.js";
 
 const api = () => {
   app.get(ROUTE_HOME, getWelcome());
@@ -11,6 +17,7 @@ const api = () => {
   app.post(ROUTE_GOAL, insertGoal);
 
   app.delete(`${ROUTE_GOAL}/:id`, deleteGoal);
+  app.delete(ROUTE_GOALS, deleteGoals);
 };
 
 export default api;
