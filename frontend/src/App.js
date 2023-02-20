@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import GoalInput from "./components/goals/GoalInput";
+import DeleteGoalsButton from "./components/goals/DeleteGoalsButton";
 import AppGoals from "./components/goals/AppGoals";
 import ErrorAlert from "./components/UI/ErrorAlert";
 import { ENDPOINT_GOAL, ENDPOINT_GOALS } from "./endpoints";
@@ -101,6 +102,31 @@ function App() {
     setIsLoading(false);
   }
 
+  async function deleteAllGoalHandler() {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(ENDPOINT_GOALS, {
+        method: "DELETE",
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.message || "Deleting all goals failed.");
+      }
+
+      setLoadedGoals([]);
+    } catch (error) {
+      setError(
+        error.message ||
+          "Deleting all goals failed - the server responded with an error."
+      );
+    }
+
+    setIsLoading(false);
+  }
+
   return (
     <section className="App">
       <header className="App-header">
@@ -113,6 +139,10 @@ function App() {
         {!error && !isLoading && (
           <AppGoals goals={loadedGoals} onDeleteGoal={deleteGoalHandler} />
         )}
+        <DeleteGoalsButton
+          hasGoals={!error && !isLoading && loadedGoals?.length > 0}
+          onDeleteAllGoals={deleteAllGoalHandler}
+        />
       </main>
     </section>
   );
