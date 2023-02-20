@@ -10,6 +10,6 @@ RUN npm install
 COPY ./frontend/public /app/public
 COPY ./frontend/src /app/src
 
-EXPOSE $PORT
+EXPOSE $APP_PORT
 
 CMD [ "npm", "start" ]
