@@ -1,5 +1,6 @@
 const STATUS_CODE_200 = 200;
 const STATUS_CODE_201 = 201;
+const STATUS_CODE_404 = 404;
 const STATUS_CODE_422 = 422;
 const STATUS_CODE_500 = 500;
 
@@ -49,4 +50,14 @@ export const handleCreatedResponse = (response, result = {}) => {
   validateResponse(response, result);
 
   return response.status(STATUS_CODE_201).json(result);
+};
+
+/**
+ * @param {object} response
+ * @param {object} result
+ */
+export const handleNotFoundResponse = (response, result = {}) => {
+  validateResponse(response, result);
+
+  return response.status(STATUS_CODE_404).json(result);
 };
