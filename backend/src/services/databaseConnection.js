@@ -4,10 +4,12 @@ import Logger from "./logger.js";
 
 const onDatabaseConnect = (error) => {
   if (error) {
-    Logger.error("FAILED TO CONNECT TO MONGODB");
-    Logger.error(error);
+    Logger.backendError(
+      error,
+      "onDatabaseConnect - FAILED TO CONNECT TO MONGODB"
+    );
   } else {
-    Logger.log("CONNECTED TO MONGODB!!");
+    Logger.log("onDatabaseConnect - CONNECTED TO MONGODB!!");
     startServer();
   }
 };
@@ -30,7 +32,7 @@ export const connectToDatabase = (connectToMongoBD = true) => {
       onDatabaseConnect
     );
   } else {
-    Logger.log("NOT CONNECTED TO MONGODB!!");
+    Logger.log("connectToDatabase - NOT CONNECTED TO MONGODB!!");
     startServer();
   }
 };
