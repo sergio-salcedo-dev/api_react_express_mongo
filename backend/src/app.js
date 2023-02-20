@@ -6,13 +6,11 @@ import { setHeaders } from "./services/headers.js";
 import { getWelcome } from "./services/home.js";
 import { connectToDatabase } from "./services/databaseConnection.js";
 
-app.get(ROUTE_HOME, getWelcome());
-
 // parse application/json
 app.use(bodyParser.json());
-
 app.use(setHeaders());
 
+app.get(ROUTE_HOME, getWelcome());
 app.get(ROUTE_GOALS, getGoals);
 app.get(`${ROUTE_GOAL}/:id`, getGoal);
 
