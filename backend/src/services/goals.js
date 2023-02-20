@@ -15,6 +15,7 @@ export const getGoals = async (request, response) => {
     const goals = await Goal.find();
     const mappedGoals = goals.map((goal) => ({
       id: goal.id,
+      isCompleted: goal.isCompleted,
       text: goal.text,
     }));
 
@@ -85,14 +86,14 @@ export const insertGoal = async (request, response) => {
     });
   }
 
-  const goal = new Goal({ text: goalText });
+  const goal = new Goal({ isCompleted: false, text: goalText });
 
   try {
     await goal.save();
 
     const result = handleCreatedResponse(response, {
       message: "Goal saved",
-      goal: { id: goal.id, text: goalText },
+      goal: { id: goal.id, text: goalText, isCompleted: false },
     });
     Logger.log("SAVED NEW GOAL");
 
