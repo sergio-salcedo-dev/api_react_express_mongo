@@ -9,22 +9,38 @@ import Logger from "./logger.js";
 import Goal from "../models/goal.js";
 import GoalStructure from "../structures/goalStructure.js";
 
+const handleErrorAndLog = (response, data, error, loggerErrorMessage) => {
+  Logger.error(loggerErrorMessage);
+  Logger.error(error.message);
+
+  return handleFailedResponse(response, data);
+};
+
+const handleResponseAndLog = (response, data, loggerMessage) => {
+  Logger.log(loggerMessage);
+
+  return handleSucceededResponse(response, data);
+};
+
 export const getGoals = async (request, response) => {
   try {
     Logger.log("TRYING TO FETCH GOALS");
 
     const goals = await Goal.find();
     const mappedGoals = goals.map((goal) => new GoalStructure(goal));
-    const result = handleSucceededResponse(response, { goals: mappedGoals });
 
-    Logger.log("FETCHED GOALS");
-
-    return result;
+    return handleResponseAndLog(
+      response,
+      { goals: mappedGoals },
+      "getGoals - FETCHED GOALS"
+    );
   } catch (error) {
-    Logger.error("ERROR FETCHING GOALS");
-    Logger.error(error.message);
-
-    return handleFailedResponse(response, { message: "Failed to load goals." });
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to load goals." },
+      error,
+      "getGoals - ERROR FETCHING GOALS"
+    );
   }
 };
 
