@@ -6,10 +6,12 @@ export default class GoalsRepository {
     try {
       return Goal.find();
     } catch (error) {
-      Logger.log(
-        "GoalsRepository.getAll - ERROR TRYING TO GET ALL GOALS",
-        error
+      Logger.backendError(
+        error,
+        "GoalsRepository.getAll - ERROR TRYING TO GET ALL GOALS"
       );
+
+      throw error;
     }
   }
 
@@ -17,10 +19,12 @@ export default class GoalsRepository {
     try {
       return Goal.find({ _id: goalId }).limit(1);
     } catch (error) {
-      Logger.log(
-        `GoalsRepository.find - ERROR TRYING TO GET GOAL ID=${goalId}`,
-        error
+      Logger.backendError(
+        error,
+        `GoalsRepository.find - ERROR TRYING TO GET GOAL ID=${goalId}`
       );
+
+      throw error;
     }
   }
 }
