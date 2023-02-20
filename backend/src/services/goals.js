@@ -11,7 +11,7 @@ export const getGoals = async (request, response) => {
   try {
     Logger.log("TRYING TO FETCH GOALS");
 
-    const goals = [{ id: 1, text: '"localhost/goals" => getGoals()' }];
+    const goals = await Goal.find();
     const mappedGoals = goals.map((goal) => ({
       id: goal.id,
       text: goal.text,
