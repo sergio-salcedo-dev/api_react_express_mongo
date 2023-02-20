@@ -106,7 +106,7 @@ export const insertGoal = async (request, response) => {
       message: "Goal saved",
       goal: new GoalStructure(goal),
     });
-    Logger.log("SAVED NEW GOAL");
+    Logger.log(`SAVED NEW GOAL WITH ID=${goal.id}`);
 
     return result;
   } catch (err) {
@@ -167,7 +167,7 @@ export const updateGoal = async (request, response) => {
       }),
     });
 
-    Logger.log("UPDATED GOAL");
+    Logger.log(`UPDATED GOAL WITH ID=${goalModel.id}`);
 
     return result;
   } catch (err) {
