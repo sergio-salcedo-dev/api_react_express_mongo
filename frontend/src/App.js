@@ -17,8 +17,6 @@ function App() {
 
       try {
         const response = await fetch(ENDPOINT_GOALS);
-        console.log(response);
-
         const responseData = await response.json();
 
         if (!response.ok) {
