@@ -107,6 +107,7 @@ export const deleteGoal = async (request, response) => {
         message: "Invalid goal id",
       });
     }
+    await Goal.deleteOne({ _id: goalId });
 
     const result = handleSucceededResponse(response, {
       message: "Deleted goal!",
