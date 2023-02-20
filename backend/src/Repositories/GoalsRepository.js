@@ -2,6 +2,7 @@ import Goal from "../models/goal.js";
 import Logger from "../services/logger.js";
 
 export default class GoalsRepository {
+  /** @return {Promise<Goal>} */
   static all() {
     try {
       return Goal.find();
@@ -15,6 +16,10 @@ export default class GoalsRepository {
     }
   }
 
+  /**
+   * @param {ObjectId} goalId
+   * @return {Promise<Goal>}
+   */
   static find(goalId) {
     try {
       return Goal.find({ _id: goalId }).limit(1);
@@ -48,6 +53,7 @@ export default class GoalsRepository {
     }
   }
 
+  /** @return {Promise<Goal>} */
   static deleteAll() {
     try {
       return Goal.deleteMany();
