@@ -170,7 +170,6 @@ export const deleteGoal = async (request, response) => {
     Logger.log("TRYING TO DELETE GOAL");
 
     const goalId = request.params.id;
-    Logger.log({ goalId });
 
     if (!goalId || parseInt(goalId) < 1) {
       Logger.log("Invalid goal id");
