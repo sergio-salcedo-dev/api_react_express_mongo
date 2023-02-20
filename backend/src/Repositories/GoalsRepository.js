@@ -27,4 +27,24 @@ export default class GoalsRepository {
       throw error;
     }
   }
+
+  /**
+   * @param {GoalStructure} goal
+   * @return {Promise<Goal>}
+   */
+  static save(goal) {
+    try {
+      const { isCompleted, text } = goal;
+      const newGoal = new Goal({ isCompleted, text });
+
+      return newGoal.save();
+    } catch (error) {
+      Logger.backendError(
+        error,
+        "GoalsRepository.save - ERROR TRYING TO SAVE GOAL"
+      );
+
+      throw error;
+    }
+  }
 }
