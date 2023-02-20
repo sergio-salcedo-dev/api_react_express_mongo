@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  mongodb:
+    container_name: mongodb
+    image: 'mongo'
+    volumes:
+      - mongodb-data:/data/db
+    env_file:
+      - ./env-files/mongo.env
+    networks:
+      - api-network
   backend:
     container_name: express
     build:
@@ -13,6 +22,10 @@ services:
       - /app/node_modules
     env_file:
       - ./env-files/backend.env
+    depends_on:
+      - mongodb
+    networks:
+      - api-network
   frontend:
     container_name: react
     build:
@@ -29,3 +42,9 @@ services:
     tty: true
     depends_on:
       - backend
+
+volumes:
+  mongodb-data:
+
+networks:
+  api-network:

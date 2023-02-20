@@ -1,12 +1,10 @@
 import app from "./server.mjs";
 import bodyParser from "body-parser";
-import Logger from "./services/logger.js";
 import { ROUTE_GOAL, ROUTE_GOALS, ROUTE_HOME } from "./routes.js";
 import { deleteGoal, getGoal, getGoals, insertGoal } from "./services/goals.js";
 import { setHeaders } from "./services/headers.js";
 import { getWelcome } from "./services/home.js";
-
-const PORT = process.env.PORT;
+import { connectToDatabase } from "./services/databaseConnection.js";
 
 app.get(ROUTE_HOME, getWelcome());
 
@@ -22,4 +20,4 @@ app.post(ROUTE_GOAL, insertGoal);
 
 app.delete(`${ROUTE_GOAL}/:id`, deleteGoal);
 
-app.listen(PORT, () => Logger.log(`Server started on port ${PORT}`));
+connectToDatabase();
