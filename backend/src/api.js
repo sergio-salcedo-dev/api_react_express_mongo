@@ -7,6 +7,7 @@ import {
   getGoal,
   getGoals,
   insertGoal,
+  updateGoal,
 } from "./services/goals.js";
 
 const api = () => {
@@ -15,6 +16,8 @@ const api = () => {
   app.get(`${ROUTE_GOAL}/:id`, getGoal);
 
   app.post(ROUTE_GOAL, insertGoal);
+
+  app.put(`${ROUTE_GOAL}/:id`, updateGoal);
 
   app.delete(`${ROUTE_GOAL}/:id`, deleteGoal);
   app.delete(ROUTE_GOALS, deleteGoals);

@@ -128,8 +128,6 @@ export const updateGoal = async (request, response) => {
     });
   }
 
-  // const goal = new Goal({ text: goalText });
-  // const goal = await Goal.findOne({ _id: goalId });
   const goal = await Goal.find({ _id: goalId }).limit(1);
 
   if (!goal || !Object.keys(goal).length) {
@@ -140,19 +138,25 @@ export const updateGoal = async (request, response) => {
     });
   }
 
+  const goalModel = goal[0];
+
   try {
     await Goal.updateOne(goal.id, { text: goalText });
 
     const result = handleSucceededResponse(response, {
       message: "Goal updated",
-      goal: { id: goal.id, text: goalText, isCompleted: goal.isCompleted },
+      goal: new GoalStructure({
+        id: goalModel.id,
+        text: goalText,
+        isCompleted: goalModel.isCompleted,
+      }),
     });
 
     Logger.log("UPDATED GOAL");
 
     return result;
   } catch (err) {
-    Logger.error("ERROR UPDATING GOALS");
+    Logger.error("ERROR UPDATING GOAL");
     Logger.error(err.message);
 
     return handleFailedResponse(response, {
