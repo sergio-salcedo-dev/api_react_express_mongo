@@ -12,4 +12,15 @@ export default class GoalsRepository {
       );
     }
   }
+
+  static find(goalId) {
+    try {
+      return Goal.find({ _id: goalId }).limit(1);
+    } catch (error) {
+      Logger.log(
+        `GoalsRepository.find - ERROR TRYING TO GET GOAL ID=${goalId}`,
+        error
+      );
+    }
+  }
 }

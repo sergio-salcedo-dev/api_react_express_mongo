@@ -62,7 +62,7 @@ export const getGoal = async (request, response) => {
       });
     }
 
-    const goal = await Goal.find({ _id: goalId }).limit(1);
+    const goal = await GoalsRepository.find(goalId);
 
     if (!goal || !Object.keys(goal).length) {
       Logger.log(`Goal with id = ${goalId} not found`);
@@ -72,16 +72,14 @@ export const getGoal = async (request, response) => {
       });
     }
 
-    const result = handleSucceededResponse(response, { goal });
-
-    Logger.log("FETCHED GOAL");
-
-    return result;
+    return handleResponseAndLog(response, { goal }, "getGoal - FETCHED GOAL");
   } catch (error) {
-    Logger.error("ERROR FETCHING GOAL");
-    Logger.error(error.message);
-
-    return handleFailedResponse(response, { message: "Failed to load goal." });
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to load goal." },
+      error,
+      "getGoal - ERROR FETCHING GOAL"
+    );
   }
 };
 
