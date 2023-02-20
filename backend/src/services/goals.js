@@ -11,8 +11,7 @@ import GoalStructure from "../structures/goalStructure.js";
 import GoalsRepository from "../Repositories/GoalsRepository.js";
 
 const handleErrorAndLog = (response, data, error, loggerErrorMessage) => {
-  Logger.error(loggerErrorMessage);
-  Logger.error(error.message);
+  Logger.backendError(error, loggerErrorMessage);
 
   return handleFailedResponse(response, data);
 };
@@ -25,7 +24,7 @@ const handleResponseAndLog = (response, data, loggerMessage) => {
 
 export const getGoals = async (request, response) => {
   try {
-    Logger.log("TRYING TO FETCH GOALS");
+    Logger.log("getGoals - TRYING TO FETCH GOALS");
 
     const goals = await GoalsRepository.all();
     const mappedGoals = goals.map((goal) => new GoalStructure(goal));
@@ -84,7 +83,7 @@ export const getGoal = async (request, response) => {
 };
 
 export const insertGoal = async (request, response) => {
-  Logger.log("TRYING TO STORE GOAL");
+  Logger.log("insertGoal - TRYING TO STORE GOAL");
 
   /** @type {string | undefined} */
   const goalText = request?.body?.text;
@@ -106,19 +105,19 @@ export const insertGoal = async (request, response) => {
       message: "Goal saved",
       goal: new GoalStructure(goal),
     });
-    Logger.log(`SAVED NEW GOAL WITH ID=${goal.id}`);
-
-    return result;
-  } catch (err) {
-    Logger.error("ERROR SAVING GOAL");
-    Logger.error(err.message);
-
-    return handleFailedResponse(response, { message: "Failed to save goal." });
+    Logger.log(`insertGoal - SAVED NEW GOAL WITH ID=${goal.id}`);
+  } catch (error) {
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to save goal." },
+      error,
+      "insertGoal - ERROR SAVING GOAL"
+    );
   }
 };
 
 export const updateGoal = async (request, response) => {
-  Logger.log("TRYING TO UPDATE GOAL");
+  Logger.log("updateGoal - TRYING TO UPDATE GOAL");
 
   /** @type {string | undefined} */
   const goalText = request?.body?.text;
@@ -167,11 +166,11 @@ export const updateGoal = async (request, response) => {
       }),
     });
 
-    Logger.log(`UPDATED GOAL WITH ID=${goalModel.id}`);
+    Logger.log(`updateGoal - UPDATED GOAL WITH ID=${goalModel.id}`);
 
     return result;
   } catch (err) {
-    Logger.error("ERROR UPDATING GOAL");
+    Logger.error("updateGoal - ERROR UPDATING GOAL");
     Logger.error(err.message);
 
     return handleFailedResponse(response, {
@@ -182,7 +181,7 @@ export const updateGoal = async (request, response) => {
 
 export const deleteGoal = async (request, response) => {
   try {
-    Logger.log("TRYING TO DELETE GOAL");
+    Logger.log("deleteGoal - TRYING TO DELETE GOAL");
 
     const goalId = request.params.id;
 
@@ -198,11 +197,11 @@ export const deleteGoal = async (request, response) => {
     const result = handleSucceededResponse(response, {
       message: "Deleted goal!",
     });
-    Logger.log("DELETED GOAL");
+    Logger.log("deleteGoal - DELETED GOAL");
 
     return result;
   } catch (error) {
-    Logger.error("ERROR DELETING GOAL");
+    Logger.error("deleteGoal - ERROR DELETING GOAL");
     Logger.error(error.message);
 
     return handleFailedResponse(response, {
