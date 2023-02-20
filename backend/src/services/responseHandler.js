@@ -1,3 +1,5 @@
+import Logger from "./logger.js";
+
 const STATUS_CODE_200 = 200;
 const STATUS_CODE_201 = 201;
 const STATUS_CODE_404 = 404;
@@ -60,4 +62,16 @@ export const handleNotFoundResponse = (response, result = {}) => {
   validateResponse(response, result);
 
   return response.status(STATUS_CODE_404).json(result);
+};
+
+export const handleErrorAndLog = (response, data, error, backendMessage) => {
+  Logger.backendError(error, backendMessage);
+
+  return handleFailedResponse(response, data);
+};
+
+export const handleResponseAndLog = (response, data, backendMessage) => {
+  Logger.log(backendMessage);
+
+  return handleSucceededResponse(response, data);
 };

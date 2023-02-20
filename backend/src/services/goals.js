@@ -1,26 +1,13 @@
 import {
   handleCreatedResponse,
-  handleFailedResponse,
+  handleErrorAndLog,
   handleNotFoundResponse,
-  handleSucceededResponse,
+  handleResponseAndLog,
   handleUnprocessableEntityResponse,
 } from "./responseHandler.js";
 import Logger from "./logger.js";
-import Goal from "../models/goal.js";
 import GoalStructure from "../structures/goalStructure.js";
 import GoalsRepository from "../Repositories/GoalsRepository.js";
-
-const handleErrorAndLog = (response, data, error, loggerErrorMessage) => {
-  Logger.backendError(error, loggerErrorMessage);
-
-  return handleFailedResponse(response, data);
-};
-
-const handleResponseAndLog = (response, data, loggerMessage) => {
-  Logger.log(loggerMessage);
-
-  return handleSucceededResponse(response, data);
-};
 
 export const getGoals = async (request, response) => {
   try {
