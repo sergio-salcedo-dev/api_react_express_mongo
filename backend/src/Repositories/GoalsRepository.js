@@ -47,4 +47,17 @@ export default class GoalsRepository {
       throw error;
     }
   }
+
+  static deleteAll() {
+    try {
+      return Goal.deleteMany();
+    } catch (error) {
+      Logger.backendError(
+        error,
+        "GoalsRepository.deleteAll - ERROR TRYING TO DELETE ALL GOALS"
+      );
+
+      throw error;
+    }
+  }
 }

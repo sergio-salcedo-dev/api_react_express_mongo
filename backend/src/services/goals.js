@@ -213,22 +213,21 @@ export const deleteGoal = async (request, response) => {
 
 export const deleteGoals = async (request, response) => {
   try {
-    Logger.log("TRYING TO DELETE ALL GOALS");
+    Logger.log("deleteGoals - TRYING TO DELETE ALL GOALS");
 
-    await Goal.deleteMany();
+    await GoalsRepository.deleteAll();
 
-    const result = handleSucceededResponse(response, {
-      message: "Deleted goals!",
-    });
-    Logger.log("DELETED GOALS");
-
-    return result;
+    return handleResponseAndLog(
+      response,
+      { message: "Deleted goals!" },
+      "deleteGoals - DELETED GOALS"
+    );
   } catch (error) {
-    Logger.error("ERROR DELETING GOALS");
-    Logger.error(error.message);
-
-    return handleFailedResponse(response, {
-      message: "Failed to delete goals.",
-    });
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to delete goals." },
+      error,
+      "deleteGoals - ERROR DELETING GOALS"
+    );
   }
 };
