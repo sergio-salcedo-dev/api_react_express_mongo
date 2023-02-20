@@ -58,13 +58,13 @@ function App() {
         throw new Error(responseData.message || "Adding the goal failed.");
       }
 
-      setLoadedGoals((prevGoals) => {
+      setLoadedGoals((previousGoals) => {
         return [
           {
             id: responseData.goal.id,
             text: goalText,
           },
-          ...prevGoals,
+          ...previousGoals,
         ];
       });
     } catch (error) {
@@ -90,8 +90,8 @@ function App() {
         throw new Error(responseData.message || "Deleting the goal failed.");
       }
 
-      setLoadedGoals((prevGoals) =>
-        prevGoals.filter((goal) => goal.id !== goalId)
+      setLoadedGoals((previousGoals) =>
+        previousGoals.filter((goal) => goal.id !== goalId)
       );
     } catch (error) {
       setError(
