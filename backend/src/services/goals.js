@@ -5,6 +5,7 @@ import {
   handleUnprocessableEntityResponse,
 } from "./responseHandler.js";
 import Logger from "./logger.js";
+import Goal from "../models/goal.js";
 
 export const getGoals = async (request, response) => {
   try {
@@ -72,12 +73,14 @@ export const insertGoal = async (request, response) => {
     });
   }
 
-  const goalId = Math.floor(Math.random() * 1000) + 1;
+  const goal = new Goal({ text: goalText });
 
   try {
+    await goal.save();
+
     const result = handleCreatedResponse(response, {
       message: "Goal saved",
-      goal: { id: goalId, text: goalText },
+      goal: { id: goal.id, text: goalText },
     });
     Logger.log("SAVED NEW GOAL");
 
