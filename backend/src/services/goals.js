@@ -7,18 +7,14 @@ import {
 } from "./responseHandler.js";
 import Logger from "./logger.js";
 import Goal from "../models/goal.js";
+import GoalStructure from "../structures/goalStructure.js";
 
 export const getGoals = async (request, response) => {
   try {
     Logger.log("TRYING TO FETCH GOALS");
 
     const goals = await Goal.find();
-    const mappedGoals = goals.map((goal) => ({
-      id: goal.id,
-      isCompleted: goal.isCompleted,
-      text: goal.text,
-    }));
-
+    const mappedGoals = goals.map((goal) => new GoalStructure(goal));
     const result = handleSucceededResponse(response, { goals: mappedGoals });
 
     Logger.log("FETCHED GOALS");
@@ -93,7 +89,7 @@ export const insertGoal = async (request, response) => {
 
     const result = handleCreatedResponse(response, {
       message: "Goal saved",
-      goal: { id: goal.id, text: goalText, isCompleted: false },
+      goal: new GoalStructure(goal),
     });
     Logger.log("SAVED NEW GOAL");
 
