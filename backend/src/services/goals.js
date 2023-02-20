@@ -8,6 +8,7 @@ import {
 import Logger from "./logger.js";
 import Goal from "../models/goal.js";
 import GoalStructure from "../structures/goalStructure.js";
+import GoalsRepository from "../Repositories/GoalsRepository.js";
 
 const handleErrorAndLog = (response, data, error, loggerErrorMessage) => {
   Logger.error(loggerErrorMessage);
@@ -26,7 +27,7 @@ export const getGoals = async (request, response) => {
   try {
     Logger.log("TRYING TO FETCH GOALS");
 
-    const goals = await Goal.find();
+    const goals = await GoalsRepository.all();
     const mappedGoals = goals.map((goal) => new GoalStructure(goal));
 
     return handleResponseAndLog(
