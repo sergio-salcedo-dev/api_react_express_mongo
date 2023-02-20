@@ -193,21 +193,20 @@ export const deleteGoal = async (request, response) => {
         message: "Invalid goal id",
       });
     }
-    await Goal.deleteOne({ _id: goalId });
+    await GoalsRepository.delete(goalId);
 
-    const result = handleSucceededResponse(response, {
-      message: "Deleted goal!",
-    });
-    Logger.log("deleteGoal - DELETED GOAL");
-
-    return result;
+    return handleResponseAndLog(
+      response,
+      { message: "Deleted goal!" },
+      "deleteGoal - DELETED GOAL"
+    );
   } catch (error) {
-    Logger.error("deleteGoal - ERROR DELETING GOAL");
-    Logger.error(error.message);
-
-    return handleFailedResponse(response, {
-      message: "Failed to delete goal.",
-    });
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to delete goal." },
+      error,
+      "deleteGoal - ERROR DELETING GOAL"
+    );
   }
 };
 

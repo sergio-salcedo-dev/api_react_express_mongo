@@ -66,4 +66,21 @@ export default class GoalsRepository {
       throw error;
     }
   }
+
+  /**
+   * @param {ObjectId} goalId
+   * @return {Promise<Goal>}
+   */
+  static async delete(goalId) {
+    try {
+      return Goal.deleteOne({ _id: goalId });
+    } catch (error) {
+      Logger.backendError(
+        error,
+        "GoalsRepository.deleteAll - ERROR TRYING TO DELETE ALL GOALS"
+      );
+
+      throw error;
+    }
+  }
 }
