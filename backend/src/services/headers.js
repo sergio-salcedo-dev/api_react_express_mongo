@@ -3,7 +3,7 @@ export const setHeaders = () => {
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader(
       "Access-Control-Allow-Methods",
-      "GET, POST, DELETE, OPTIONS"
+      "GET, POST, PUT, DELETE, OPTIONS"
     );
     response.setHeader("Access-Control-Allow-Headers", "Content-Type");
     next();
