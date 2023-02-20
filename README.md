@@ -54,6 +54,10 @@ docker logs express
 docker logs react
 ```
 
+```sh
+docker logs mongodb
+```
+
 ***
 
 # Up & Run project
