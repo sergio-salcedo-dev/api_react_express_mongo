@@ -44,7 +44,7 @@ export const getGoal = async (request, response) => {
       });
     }
 
-    const goal = { id: goalId, text: "'\"localhost/goal/1\" => getGoal()'" };
+    const goal = await Goal.findOne({ _id: goalId });
 
     const result = handleSucceededResponse(response, { goal });
 
