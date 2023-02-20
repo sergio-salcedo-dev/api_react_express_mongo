@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./CourseGoals.css";
+import "./AppGoals.css";
 import Card from "../UI/Card";
 import GoalItem from "./GoalItem";
 
-function CourseGoals(props) {
+function AppGoals(props) {
   const hasNoGoals = !props.goals || props.goals.length === 0;
 
   return (
-    <section id="course-goals">
+    <section id="app-goals">
       <Card>
         <h2>Your Goals</h2>
         {hasNoGoals && <h2>No goals found. Start adding some!</h2>}
@@ -27,4 +27,4 @@ function CourseGoals(props) {
   );
 }
 
-export default CourseGoals;
+export default AppGoals;

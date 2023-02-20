@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import GoalInput from "./components/goals/GoalInput";
-import CourseGoals from "./components/goals/CourseGoals";
+import AppGoals from "./components/goals/AppGoals";
 import ErrorAlert from "./components/UI/ErrorAlert";
 import { ENDPOINT_GOAL, ENDPOINT_GOALS } from "./endpoints";
 
@@ -111,9 +111,9 @@ function App() {
       </header>
       <main className="App-intro">
         {error && <ErrorAlert errorText={error} />}
-        <GoalInput onAddGoal={addGoalHandler} />
-        {!isLoading && (
-          <CourseGoals goals={loadedGoals} onDeleteGoal={deleteGoalHandler} />
+        {!error && <GoalInput onAddGoal={addGoalHandler} />}
+        {!error && !isLoading && (
+          <AppGoals goals={loadedGoals} onDeleteGoal={deleteGoalHandler} />
         )}
       </main>
     </section>
