@@ -96,16 +96,17 @@ export const insertGoal = async (request, response) => {
     });
   }
 
-  const goal = new Goal({ isCompleted: false, text: goalText });
-
   try {
-    await goal.save();
+    const goal = await GoalsRepository.save(
+      new GoalStructure({ isCompleted: false, text: goalText })
+    );
 
-    const result = handleCreatedResponse(response, {
+    Logger.log(`insertGoal - SAVED NEW GOAL WITH ID=${goal.id}`);
+
+    return handleCreatedResponse(response, {
       message: "Goal saved",
       goal: new GoalStructure(goal),
     });
-    Logger.log(`insertGoal - SAVED NEW GOAL WITH ID=${goal.id}`);
   } catch (error) {
     return handleErrorAndLog(
       response,
