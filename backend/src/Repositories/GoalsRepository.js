@@ -2,7 +2,7 @@ import Goal from "../models/goal.js";
 import Logger from "../services/logger.js";
 
 export default class GoalsRepository {
-  /** @return {Promise<Goal>} */
+  /** @return {Promise<Goal[]>} */
   static all() {
     try {
       return Goal.find();
@@ -35,7 +35,7 @@ export default class GoalsRepository {
 
   /**
    * @param {GoalStructure} goal
-   * @return {Promise<Goal>}
+   * @return {Promise<void>}
    */
   static save(goal) {
     try {
@@ -53,7 +53,7 @@ export default class GoalsRepository {
     }
   }
 
-  /** @return {Promise<Goal>} */
+  /** @return {Promise<void>} */
   static deleteAll() {
     try {
       return Goal.deleteMany();
@@ -69,7 +69,7 @@ export default class GoalsRepository {
 
   /**
    * @param {ObjectId} goalId
-   * @return {Promise<Goal>}
+   * @return {Promise<void>}
    */
   static async delete(goalId) {
     try {
@@ -78,6 +78,26 @@ export default class GoalsRepository {
       Logger.backendError(
         error,
         "GoalsRepository.deleteAll - ERROR TRYING TO DELETE ALL GOALS"
+      );
+
+      throw error;
+    }
+  }
+
+  /**
+   * @param {ObjectId} goalId
+   * @param {GoalStructure} goal
+   * @return {Promise<Query>}
+   */
+  static async update(goalId, goal) {
+    try {
+      const { isCompleted, text } = goal;
+
+      return Goal.updateOne(goalId, { text });
+    } catch (error) {
+      Logger.backendError(
+        error,
+        "GoalsRepository.deleteAll - ERROR TRYING TO UPDATE GOAL"
       );
 
       throw error;

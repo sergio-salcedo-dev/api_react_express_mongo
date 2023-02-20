@@ -143,7 +143,7 @@ export const updateGoal = async (request, response) => {
     });
   }
 
-  const goal = await Goal.find({ _id: goalId }).limit(1);
+  const goal = await GoalsRepository.find(goalId);
 
   if (!goal || !Object.keys(goal).length) {
     Logger.log(`Goal with id = ${goalId} not found`);
@@ -153,30 +153,33 @@ export const updateGoal = async (request, response) => {
     });
   }
 
-  const goalModel = goal[0];
-
   try {
-    await Goal.updateOne(goal.id, { text: goalText });
+    await GoalsRepository.update(
+      goal.id,
+      new GoalStructure({ text: goalText })
+    );
 
-    const result = handleSucceededResponse(response, {
-      message: "Goal updated",
-      goal: new GoalStructure({
-        id: goalModel.id,
-        text: goalText,
-        isCompleted: goalModel.isCompleted,
-      }),
-    });
+    const goalModel = goal[0];
 
-    Logger.log(`updateGoal - UPDATED GOAL WITH ID=${goalModel.id}`);
-
-    return result;
-  } catch (err) {
-    Logger.error("updateGoal - ERROR UPDATING GOAL");
-    Logger.error(err.message);
-
-    return handleFailedResponse(response, {
-      message: "Failed to update goal.",
-    });
+    return handleResponseAndLog(
+      response,
+      {
+        message: "Updated goal",
+        goal: new GoalStructure({
+          id: goalModel.id,
+          text: goalText,
+          isCompleted: goalModel.isCompleted,
+        }),
+      },
+      `updateGoal - UPDATED GOAL WITH ID=${goalModel.id}`
+    );
+  } catch (error) {
+    return handleErrorAndLog(
+      response,
+      { message: "Failed to update goal." },
+      error,
+      "updateGoal - ERROR UPDATING GOAL"
+    );
   }
 };
 
@@ -193,6 +196,7 @@ export const deleteGoal = async (request, response) => {
         message: "Invalid goal id",
       });
     }
+
     await GoalsRepository.delete(goalId);
 
     return handleResponseAndLog(
